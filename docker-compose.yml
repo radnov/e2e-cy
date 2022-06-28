@@ -4,8 +4,8 @@ services:
     image: 'dhis2/cypress-tests:master'
     shm_size: '2gb' 
     environment:
-      CYPRESS_BASE_URL: https://smoke.dhis2.org/dev_smoke
-      CYPRESS_REPORT_PORTAL_ENABLED: ${REPORT_PORTAL_ENABLED:-'false'}
+      CYPRESS_BASE_URL: ${CYPRESS_BASE_URL}
+      CYPRESS_REPORT_PORTAL_ENABLED: ${CYPRESS_REPORT_PORTAL_ENABLED}
       CYPRESS_LOGIN_USERNAME: 'admin'
       CYPRESS_LOGIN_PASSWORD: 'district'
       CI_BUILD_ID: ${CI_BUILD_ID:-"test0002"}
