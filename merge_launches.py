@@ -1,9 +1,9 @@
 import requests, os, time
 from datetime import datetime
-ENABLED = os.environ['CYPRESS_REPORT_PORTAL_ENABLED']
+ENABLED = os.getenv('CYPRESS_REPORT_PORTAL_ENABLED', False)
 URL = "https://test.tools.dhis2.org/reportportal/api/v1/dhis2_auto"
-REPORT_PORTAL_TOKEN = os.environ['RP_TOKEN']
-CI_BUILD_ID = os.environ['CI_BUILD_ID']
+REPORT_PORTAL_TOKEN = os.getenv('RP_TOKEN')
+CI_BUILD_ID = os.getenv('CI_BUILD_ID', 'test0002')
 
 if ENABLED == False:
   exit(0)
