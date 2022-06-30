@@ -4,7 +4,7 @@
   "description": "DHIS2 e2e tests in cypress",
   "scripts": {
     "cy:open": "cypress open",
-    "cy:test": "cypress run --browser chrome",
+    "cy:test": "cypress run --browser firefox",
     "cy:parallel": "cypress-parallel -t 3 -s cy:test -d cypress/e2e",
     "allure:serve": "allure serve --results ./allure-results"
   },
