@@ -1,4 +1,4 @@
-FROM 'cypress/included:10.0.3'
+FROM 'cypress/included:10.3.0'
 
 ENV CYPRESS_VIDEO=false
 WORKDIR /usr/test
