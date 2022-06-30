@@ -5,10 +5,10 @@ services:
     shm_size: '2gb' 
     environment:
       CYPRESS_BASE_URL: ${CYPRESS_BASE_URL}
-      CYPRESS_REPORT_PORTAL_ENABLED: ${CYPRESS_REPORT_PORTAL_ENABLED}
+      CYPRESS_REPORT_PORTAL_ENABLED: ${CYPRESS_REPORT_PORTAL_ENABLED:-'false'}
       CYPRESS_LOGIN_USERNAME: 'admin'
       CYPRESS_LOGIN_PASSWORD: 'district'
-      CI_BUILD_ID: ${CI_BUILD_ID:-"test0002"}
+      CI_BUILD_ID: ${CI_BUILD_ID:-'test0002'}
       RP_TOKEN: ${RP_TOKEN}
     volumes: 
       - ./allure-results:/usr/test/allure-results
