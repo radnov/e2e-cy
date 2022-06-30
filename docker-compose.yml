@@ -14,4 +14,4 @@ services:
       - ./allure-results:/usr/test/allure-results
       - ./allure-report:/usr/test/allure-report
       - ./screenshots:/usr/test/cypress/screenshots
-    entrypoint: "npm run cy:parallel"
+    entrypoint: "npm run cy:test"
