@@ -18,7 +18,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       return require('./cypress/plugins/index.js')(on, config)
     },
-    baseUrl: 'https://smoke.dhis2.org/dev_smoke',
+    baseUrl: 'https://whoami.im.radnov.test.c.dhis2.org/e2e-cy-9312',
     specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
     experimentalSessionAndOrigin: true,
   },

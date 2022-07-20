@@ -4,7 +4,7 @@ services:
     image: 'dhis2/cypress-tests:master'
     shm_size: '2gb' 
     environment:
-      CYPRESS_BASE_URL: https://smoke.dhis2.org/dev_smoke
+      CYPRESS_BASE_URL: https://whoami.im.radnov.test.c.dhis2.org/e2e-cy-9312
       CYPRESS_REPORT_PORTAL_ENABLED: ${REPORT_PORTAL_ENABLED:-'false'}
       CYPRESS_LOGIN_USERNAME: 'admin'
       CYPRESS_LOGIN_PASSWORD: 'district'
