@@ -5,7 +5,7 @@ URL = "https://test.tools.dhis2.org/reportportal/api/v1/dhis2_auto"
 REPORT_PORTAL_TOKEN = os.environ['RP_TOKEN']
 CI_BUILD_ID = os.environ['CI_BUILD_ID']
 
-if ENABLED == False:
+if ENABLED.lower() == 'false':
   exit(0)
 
 headers = {
