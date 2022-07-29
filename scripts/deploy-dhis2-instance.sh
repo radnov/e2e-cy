@@ -46,6 +46,10 @@ echo "{
     {
       \"name\": \"DATABASE_SIZE\",
       \"value\": \"$db_size\"
+    },
+    {
+      \"name\": \"INSTANCE_TTL\",
+      \"value\": \"$ttl\"
     }
   ],
   \"requiredParameters\": [
