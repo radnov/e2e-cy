@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -euxo pipefail
 
 instance_name="$1"
 group_name="$2"
 instance_version="$3"
 
 # 1 day
-ttl=86400
+ttl=$(($EPOCHSECONDS + 86400))
 
 db_id=1
 db_size=30Gi
@@ -15,6 +15,9 @@ db_size=30Gi
 stack_name=dhis2
 
 versions_json="https://releases.dhis2.org/v1/versions/stable.json"
+
+default_dhis2_credentials="admin:district"
+
 
 latest_patch_version=$(
   curl -fsSL "$versions_json" |
@@ -75,12 +78,12 @@ done
 echo "Instance is ready! Triggering Analytics generation ..."
 
 analytics_status_endpoint=$(
-  $HTTP --auth "admin:district" post "$INSTANCE_DOMAIN/$instance_name/api/resourceTables/analytics" |
+  $HTTP --auth "$default_dhis2_credentials" post "$INSTANCE_DOMAIN/$instance_name/api/resourceTables/analytics" |
   jq -r '.response .relativeNotifierEndpoint'
 )
 
 analytics_status() {
-  $HTTP --auth "admin:district" get "$INSTANCE_DOMAIN/${instance_name}${analytics_status_endpoint}" |
+  $HTTP --auth "$default_dhis2_credentials" get "$INSTANCE_DOMAIN/${instance_name}${analytics_status_endpoint}" |
   jq -r '.[] .completed'
 }
 
