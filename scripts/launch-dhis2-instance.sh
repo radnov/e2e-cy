@@ -29,14 +29,6 @@ tag=${DHIS2_IMAGE_TAG:-$default_tag}
 
 ACCESS_TOKEN=$($HTTP --auth "$USER_EMAIL:$PASSWORD" post "$INSTANCE_HOST/tokens" | jq -r '.access_token')
 
-instance_id=$(
-  echo "{
-    \"name\": \"$instance_name\",
-    \"groupName\": \"$group_name\",
-    \"stackName\": \"$stack_name\"
-  }" | $HTTP post "$INSTANCE_HOST/instances" "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.ID'
-)
-
 echo "{
   \"name\": \"$instance_name\",
   \"groupName\": \"$group_name\",
@@ -61,7 +53,7 @@ echo "{
       \"value\": \"$db_id\"
     }
   ]
-}" | $HTTP post "$INSTANCE_HOST/instances/$instance_id/deploy" "Authorization: Bearer $ACCESS_TOKEN"
+}" | $HTTP post "$INSTANCE_HOST/instances" "Authorization: Bearer $ACCESS_TOKEN"
 
 echo "Instance $instance_name deployed!"
 
