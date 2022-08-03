@@ -9,11 +9,6 @@ instance_version="$3"
 # 1 day
 ttl=$(($EPOCHSECONDS + 86400))
 
-db_id=1
-db_size=30Gi
-
-stack_name=dhis2
-
 versions_json="https://releases.dhis2.org/v1/versions/stable.json"
 
 default_dhis2_credentials="admin:district"
@@ -24,36 +19,13 @@ latest_patch_version=$(
   jq -r --arg version "$instance_version" '.versions[] | select(.name == $version ) | .latestPatchVersion'
 )
 
-default_tag="$instance_version.$latest_patch_version"
-tag=${DHIS2_IMAGE_TAG:-$default_tag}
+tag="$instance_version.$latest_patch_version"
 
-ACCESS_TOKEN=$($HTTP --auth "$USER_EMAIL:$PASSWORD" post "$INSTANCE_HOST/tokens" | jq -r '.access_token')
+token=$($HTTP --auth "$USER_EMAIL:$PASSWORD" post "$INSTANCE_HOST/tokens" | jq -r '.access_token')
 
-echo "{
-  \"name\": \"$instance_name\",
-  \"groupName\": \"$group_name\",
-  \"stackName\": \"$stack_name\",
-  \"optionalParameters\": [
-    {
-      \"name\": \"IMAGE_TAG\",
-      \"value\": \"$tag\"
-    },
-    {
-      \"name\": \"DATABASE_SIZE\",
-      \"value\": \"$db_size\"
-    },
-    {
-      \"name\": \"INSTANCE_TTL\",
-      \"value\": \"$ttl\"
-    }
-  ],
-  \"requiredParameters\": [
-    {
-      \"name\": \"DATABASE_ID\",
-      \"value\": \"$db_id\"
-    }
-  ]
-}" | $HTTP post "$INSTANCE_HOST/instances" "Authorization: Bearer $ACCESS_TOKEN"
+curl "https://raw.githubusercontent.com/dhis2-sre/im-manager/feat/user-scripts/scripts/deploy-dhis2.sh" -O
+chmod +x deploy-dhis2.sh
+IMAGE_TAG="$tag" INSTANCE_TTL="$ttl" DB_ID=1 ACCESS_TOKEN="$token" ./deploy-dhis2.sh "$group_name" "$instance_name"
 
 echo "Instance $instance_name deployed!"
 
