@@ -13,7 +13,6 @@ pipeline {
         VERSION = "2.38"
         INSTANCE_NAME = "${VERSION}_smoke"
         INSTANCE_DOMAIN = "https://whoami.im.radnov.test.c.dhis2.org"
-        //GIT_URL = "https://github.com/radnov/e2e-cy"
         ALLURE_REPORT_DIR_PATH = "./allure"
         ALLURE_RESULTS_DIR = "./allure-results"
         ALLURE_REPORT_DIR = "allure-report-$VERSION"
@@ -51,7 +50,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    //git url: "${GIT_URL}", branch: 'test'
                     sh 'docker build -t dhis2/cypress-tests:master .'
                 }
             }
@@ -63,7 +61,6 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'e2e-im-user', passwordVariable: 'PASSWORD', usernameVariable: 'USER_EMAIL')]) {
                         echo "Creating DHIS2 $VERSION instance ..."
 
-                        // move to deploy script?
                         randomInt = new Random().nextInt(9999)
                         INSTANCE_NAME = "e2e-cy-$randomInt"
 
