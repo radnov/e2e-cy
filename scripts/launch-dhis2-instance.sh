@@ -23,7 +23,7 @@ tag="$instance_version.$latest_patch_version"
 
 token=$($HTTP --auth "$USER_EMAIL:$PASSWORD" post "$INSTANCE_HOST/tokens" | jq -r '.access_token')
 
-curl "https://raw.githubusercontent.com/dhis2-sre/im-manager/feat/user-scripts/scripts/deploy-dhis2.sh" -O
+curl "https://raw.githubusercontent.com/dhis2-sre/im-manager/master/scripts/deploy-dhis2.sh" -O
 chmod +x deploy-dhis2.sh
 IMAGE_TAG="$tag" INSTANCE_TTL="$ttl" DB_ID=1 ACCESS_TOKEN="$token" ./deploy-dhis2.sh "$group_name" "$instance_name"
 
